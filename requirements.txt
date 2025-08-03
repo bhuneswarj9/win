@@ -1,4 +1,5 @@
 fastapi
-uvicorn
-playwright
+uvicorn[standard]
+requests
 mysql-connector-python
+playwright
