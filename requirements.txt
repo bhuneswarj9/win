@@ -3,3 +3,4 @@ uvicorn[standard]
 requests
 mysql-connector-python
 playwright
+Flask==3.0.0
