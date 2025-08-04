@@ -15,7 +15,7 @@ from logging.handlers import RotatingFileHandler
 import uvicorn
 
 # === CONFIG ===
-API_URL = "http://127.0.0.1:8000/api/latest-draw"
+API_URL = "https://win-ll87.onrender.com/api/latest-draw"
 LOG_FILE = "wingo_service.log"
 FETCH_TIMEOUT = 30  # seconds
 FETCH_INTERVAL = 60  # seconds
