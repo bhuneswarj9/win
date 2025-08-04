@@ -16,12 +16,6 @@ import uvicorn
 
 # === CONFIG ===
 API_URL = "http://127.0.0.1:8000/api/latest-draw"
-DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "12345678",
-    "database": "wingo"
-}
 LOG_FILE = "wingo_service.log"
 FETCH_TIMEOUT = 30  # seconds
 FETCH_INTERVAL = 60  # seconds
@@ -80,29 +74,6 @@ def scrape():
             return {"error": str(e)}
         finally:
             browser.close()
-
-# === DATABASE ===
-def insert_into_db(data):
-    try:
-        conn = mysql.connector.connect(**DB_CONFIG)
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM results WHERE draw_number = %s", (data["draw_number"],))
-        if cursor.fetchone()[0] == 0:
-            cursor.execute(
-                "INSERT INTO results (draw_number, result_number, size, color, created_at) VALUES (%s, %s, %s, %s, %s)",
-                (data["draw_number"], data["result_number"], data["size"], data["color"], datetime.now())
-            )
-            conn.commit()
-            inserted = True
-        else:
-            inserted = False
-        cursor.close()
-        conn.close()
-        return inserted
-    except Exception as e:
-        logger.error("Database error: %s", e)
-        return False
-
 # === FASTAPI ===
 app = FastAPI()
 
